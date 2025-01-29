@@ -49,7 +49,7 @@ CREATE TABLE excursions (
     id SERIAL PRIMARY KEY,
     trip_id INT REFERENCES trips(id),
     name VARCHAR(255),
-    statt_time TIMESTAMP,
+    start_time TIMESTAMP,
     end_time TIMESTAMP,
     details TEXT
 );
