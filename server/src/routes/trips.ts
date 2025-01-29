@@ -1,10 +1,11 @@
 import express from "express";
 import { db } from "../db-connection";
+import { checkJwt } from "../middleware/auth";
 
 const router = express.Router();
 
 //Create Trip
-router.post("/trips", async (req, res) => {
+router.post("/trips", checkJwt, async (req, res) => {
   const { user_id, name, start_date, end_date } = req.body;
   try {
     const result = await db.query(
@@ -19,7 +20,7 @@ router.post("/trips", async (req, res) => {
 });
 
 //Get Trips
-router.get("/trips", async (req, res) => {
+router.get("/trips", checkJwt, async (req, res) => {
   const { user_id } = req.query;
   try {
     const result = await db.query("SELECT * FROM trips WHERE user_id = $1", [
@@ -33,7 +34,7 @@ router.get("/trips", async (req, res) => {
 });
 
 //Edit or Update Trip
-router.put("/trips/:id", async (req, res) => {
+router.put("/trips/:id", checkJwt, async (req, res) => {
   const { id } = req.params;
   const { name, start_date, end_date } = req.body;
   try {
@@ -52,7 +53,7 @@ router.put("/trips/:id", async (req, res) => {
 });
 
 //Delete Trip
-router.delete("/trips/:id", async (req, res) => {
+router.delete("/trips/:id", checkJwt, async (req, res) => {
   const { id } = req.params;
   try {
     const result = await db.query(
