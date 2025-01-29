@@ -3,6 +3,7 @@ import { db } from "../db-connection";
 
 const router = express.Router(); 
 
+//Create Trip 
 router.post("/trips", async (req, res) => {
   const {user_id, name, start_date, end_date} = req.body;
   try {
@@ -17,6 +18,7 @@ router.post("/trips", async (req, res) => {
   }
 });
 
+//Get Trips
 router.get("/trips", async (req, res) => {
   const { user_id } = req.query; 
   try {
@@ -28,6 +30,7 @@ router.get("/trips", async (req, res) => {
   }
 });
 
+//Edit or Update Trip
 router.put("/trips/:id", async (req, res) => {
   const { id } = req.params;
   const { name, start_date, end_date } = req.body;
@@ -46,6 +49,7 @@ router.put("/trips/:id", async (req, res) => {
   }
 });
 
+//Delete Trip 
 router.delete("/trips/:id", async (req, res) => {
   const { id } = req.params;
   try {
