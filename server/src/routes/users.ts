@@ -1,11 +1,12 @@
 import express, { Request, Response } from "express";
 import { db } from "../db-connection";
 import { checkJwt } from "../middleware/auth";
+import { AuthenticatedRequest } from "./types";
 
 const router = express.Router();
 
 //Create User 
-router.post("/users", checkJwt, async (req: Request, res: Response): Promise<void> => {
+router.post("/users", checkJwt, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const { email } = req.body;
     const auth0_id = req.auth?.sub;
