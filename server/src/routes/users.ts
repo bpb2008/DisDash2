@@ -1,19 +1,19 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { db } from "../db-connection";
 import { checkJwt } from "../middleware/auth";
 
 const router = express.Router();
 
 //Create User 
-router.post("/users", checkJwt, async (req, res) => {
-  const { email } = req.body;
-  const auth0_id = req.auth?.sub;
+router.post("/users", checkJwt, async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email } = req.body;
+    const auth0_id = req.auth?.sub;
 
   if (!auth0_id) {
-    return res.status(400).json({ error: "Auth0 ID is required." });
+    res.status(400).json({ error: "Auth0 ID is required." });
+    return;
   }
-
-  try {
     const result = await db.query(
       "INSERT INTO users (auth0_id, email) VALUES ($1, $2, $3) RETURNING *",
       [auth0_id, email]
@@ -26,12 +26,13 @@ router.post("/users", checkJwt, async (req, res) => {
 });
 
 //Get A User 
-router.get("/users/:id", checkJwt, async (req, res) => {
-  const { id } = req.params;
+router.get("/users/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
+    const { id } = req.params;
     const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
     if (result.rowCount === 0) {
-      return res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: "User not found" })
+      return;
     }
     res.status(200).json(result.rows[0]);
   } catch (err) {
@@ -41,16 +42,17 @@ router.get("/users/:id", checkJwt, async (req, res) => {
 })
 
 //Edit or Update A User
-router.put("/users/:id", checkJwt, async (req, res) => {
-  const { id } = req.params;
-  const { email } = req.body;
+router.put("/users/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
+    const { id } = req.params;
+    const { email } = req.body;
     const result = await db.query(
       'UPDATE users SET email = $1 WHERE id = $2 RETURNING *',
       [email, id]
     );
     if (result.rowCount === 0) {
-      return res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: 'User not found' });
+      return;
     }
     res.status(200).json(result.rows[0]);
   } catch (err) {
@@ -60,14 +62,14 @@ router.put("/users/:id", checkJwt, async (req, res) => {
 })
 
 //Delete A User
-router.delete("/users/:id", checkJwt, async (req, res) => {
-  const { id } = req.params;
-
+router.delete("/users/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
+    const { id } = req.params;
     const result = await db.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: 'User not found' });
+      return;
     }
 
     res.json({ message: 'User deleted successfully' });

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { db } from "../db-connection";
 import { checkJwt } from "../middleware/auth";
 
@@ -19,13 +19,14 @@ router.post("/rentalCars", checkJwt, async (req, res) => {
 });
 
 //Get A Specific Rental Car
-router.get("/rentalCars/:id", checkJwt, async (req, res) => {
+router.get("/rentalCars/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query("SELECT * FROM rental_cars WHERE id = $1", [id]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Rental Car not found" });
+      res.status(404).json({ error: "Rental Car not found" });
+      return;
     }
     res.json(result.rows[0]);
   } catch (error) {
@@ -46,7 +47,7 @@ router.get("/trip/:trip_id", checkJwt, async (req, res) => {
 });
 
 //Edit or Update Rental Car
-router.put("/rentalCars/:id", checkJwt, async (req, res) => {
+router.put("/rentalCars/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { agency, pick_up_date, drop_off_date } = req.body;
@@ -56,7 +57,8 @@ router.put("/rentalCars/:id", checkJwt, async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Rental Car not found" });
+      res.status(404).json({ error: "Rental Car not found" });
+      return; 
     }
     res.json(result.rows[0]);
   } catch (error) {
@@ -65,13 +67,14 @@ router.put("/rentalCars/:id", checkJwt, async (req, res) => {
 });
 
 //Delete Rental Car
-router.delete("/rentalCars/:id", checkJwt, async (req, res) => {
+router.delete("/rentalCars/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query("DELETE FROM rental_cars WHERE id = $1", [id]);
   
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Rental Car not found" });
+      res.status(404).json({ error: "Rental Car not found" });
+      return;
     }
     res.json({ message: "Rental Car deleted successfully" });
   } catch (error) {

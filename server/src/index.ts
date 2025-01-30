@@ -1,11 +1,11 @@
 import express from "express";
-import tripRoutes from "./trips";
-import userRoutes from "./users";
-import flightRoutes from "./flights";
-import hotelRoutes from "./hotels";
-import rentalCarRoutes from "./rentalCars";
-import diningRoutes from "./reservations";
-import excursionRoutes from "./excursions";
+import tripRoutes from "./routes/trips";
+import userRoutes from "./routes/users";
+import flightRoutes from "./routes/flights";
+import hotelRoutes from "./routes/hotels";
+import rentalCarRoutes from "./routes/rentalCars";
+import diningRoutes from "./routes/reservations";
+import excursionRoutes from "./routes/excursions";
 
 
 const router = express.Router(); 

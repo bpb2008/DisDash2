@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { db } from "../db-connection";
 import { checkJwt } from "../middleware/auth";
 
@@ -19,13 +19,14 @@ router.post("/dining", checkJwt, async (req, res) => {
 });
 
 //Get A Dining Reservation
-router.get("/dining:id", checkJwt, async (req, res) => {
+router.get("/dining:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query("SELECT * FROM reservations WHERE id = $1", [id]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Reservation not found." });
+      res.status(404).json({ error: "Reservation not found." });
+      return; 
     }
     res.json(result.rows[0]);
   } catch (error) {
@@ -46,7 +47,7 @@ router.get("/trip/:trip_id", checkJwt, async (req, res) => {
 });
 
 //Update A Dining Reservation
-router.get("/dining/:id", checkJwt, async (req, res) => {
+router.get("/dining/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, reservation_time } = req.body;
@@ -56,7 +57,8 @@ router.get("/dining/:id", checkJwt, async (req, res) => {
       [name, reservation_time, id]
     );
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Reservation not found." });
+      res.status(404).json({ error: "Reservation not found." });
+      return; 
     }
     res.json(result.rows[0]);
   } catch (error) {
@@ -65,13 +67,14 @@ router.get("/dining/:id", checkJwt, async (req, res) => {
 });
 
 //Delete A Dining Reservation
-router.delete("/dining/:id", checkJwt, async (req, res) => {
+router.delete("/dining/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query("DELETE FROM reservations WHERE id = $1 RETURNING *", [id]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Reservation not found." });
+      res.status(404).json({ error: "Reservation not found." });
+      return; 
     }
     res.json(result.rows[0]);
   } catch (error) {

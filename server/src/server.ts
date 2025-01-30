@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv"; 
 import cors from "cors"; 
-// import router from "./routes/index";
-// import { checkJwt } from "./middleware/auth";
+import router from "./index";
+
 
 dotenv.config(); 
 
@@ -19,9 +19,6 @@ app.use(
   })
 ); 
 
-//Auth0 JWT Middleware
-
-// app.use("/api/users", checkJwt);
 
 //API Routes
 
@@ -29,7 +26,7 @@ app.get('/', (req, res) => {
   res.send('Travel Planner API');
 });
 
-// app.use("/api", router);
+app.use("/api", router);
 
 
 //Start the server 

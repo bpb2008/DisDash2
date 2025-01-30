@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { db } from "../db-connection"; 
 import { checkJwt } from "../middleware/auth";
 
@@ -46,7 +46,7 @@ router.get("/trip/:trip_id", checkJwt, async (req, res) => {
 }); 
 
 //Update An Excursion
-router.put("/excursions/:id", checkJwt, async (req, res) => {
+router.put("/excursions/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, start_time, end_time, details } = req.body;
@@ -57,7 +57,8 @@ router.put("/excursions/:id", checkJwt, async (req, res) => {
     ); 
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Excursion not found." });
+      res.status(404).json({ error: "Excursion not found." });
+      return;
     }
     res.json(result.rows[0]);
   } catch (error) {
@@ -66,13 +67,14 @@ router.put("/excursions/:id", checkJwt, async (req, res) => {
 });
 
 //Delete An Excursion
-router.delete("/excursions/:id", checkJwt, async (req, res) => {
+router.delete("/excursions/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query("DELETE FROM excursions WHERE id = $1 RETURNING *", [id]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Excursion not found." });
+      res.status(404).json({ error: "Excursion not found." });
+      return; 
     }
     res.json(result.rows[0]);
   } catch (error) {

@@ -1,4 +1,4 @@
-import express from "express"; 
+import express, { Request, Response } from "express"; 
 import { db } from "../db-connection";
 import { checkJwt } from "../middleware/auth";
 
@@ -19,13 +19,14 @@ router.post("/hotels", checkJwt, async (req, res) => {
 });
 
 //Get A Specific Hotel
-router.get("/hotels/:id", checkJwt, async (req, res) => {
+router.get("/hotels/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query("SELECT * FROM hotels WHERE id = $1", [id]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Hotel not found" });
+      res.status(404).json({ error: "Hotel not found" });
+      return;
     }
     res.json(result.rows[0]);
   } catch (error) {
@@ -46,7 +47,7 @@ router.get("/trip/:trip_id", checkJwt, async (req, res) => {
 });
 
 //Edit or Update Hotel
-router.put("/hotels/:id", checkJwt, async (req, res) => {
+router.put("/hotels/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, check_in_date, check_out_date } = req.body;
@@ -56,7 +57,8 @@ router.put("/hotels/:id", checkJwt, async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Hotel not found" });
+      res.status(404).json({ error: "Hotel not found" });
+      return; 
     }
     res.json(result.rows[0]);
   } catch (error) {
@@ -65,13 +67,14 @@ router.put("/hotels/:id", checkJwt, async (req, res) => {
 });
 
 //Delete A Hotel 
-router.delete("/hotels/:id", checkJwt, async (req, res) => {
+router.delete("/hotels/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query("DELETE FROM hotels WHERE id = $1 RETURNING *", [id]);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Hotel not found" });
+      res.status(404).json({ error: "Hotel not found" });
+      return; 
     }
     res.json({ message: "Hotel deleted successfully" });
   } catch (error) {
