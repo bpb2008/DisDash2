@@ -18,7 +18,7 @@
     "typescript": "^5.7.3"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS=--loader=ts-node/esm ts-node-esm src/server.ts",
+    "dev": "ts-node --transpile-only src/server.ts",
     "build": "tsc"
   }
 }
