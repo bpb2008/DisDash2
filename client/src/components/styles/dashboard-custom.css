@@ -1,0 +1,29 @@
+#dashContainer aside {
+  display: flex; 
+  flex-direction: column;
+  background-color: #158fd4;
+  border-radius: 8px; 
+  grid-column: span 1 / span 1; 
+  color: white; 
+  padding: 10px; 
+}
+
+#dashContainer aside img {
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+  width: 100px; 
+  height: 120px;  
+}
+
+#dashContainer section {
+  display: flex; 
+  flex-direction: column; 
+  background-color: #158ed45b;
+}
+
+#dashContainer section p {
+  font-size: 1.2em; 
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+}
+

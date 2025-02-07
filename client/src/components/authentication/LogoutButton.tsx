@@ -5,6 +5,7 @@ const LogoutButton: React.FC = () => {
 
   return (
     <button
+      className="border-white bg-[#158fd4] hover:bg-[#9daecc] text-white border-2 rounded-md p-2"
       onClick={() =>
         logout({ logoutParams: { returnTo: window.location.origin } })
       }
