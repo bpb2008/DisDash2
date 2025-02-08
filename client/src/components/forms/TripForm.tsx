@@ -5,21 +5,53 @@ const TripForm: React.FC = () => {
   const [tripName, setTripName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (new Date(endDate) < new Date(startDate)) {
-      setError("End date must be after start date");
+    setError(null);
+
+    if (!tripName || !startDate || !endDate) {
+      setError("All fields are reqiired.");
       return;
     }
 
-    setError("");
-    console.log({ tripName, startDate, endDate });
+    if (new Date(startDate) > new Date(endDate)) {
+      setError("End date must be after start date.");
+      return;
+    }
 
-    alert("Trip created successfully!");
-    //Need to put the API stuff in here?!?!?!
+    try {
+      setLoading(true);
+
+      const response = await fetch("http://localhost:6000/api/trips", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tripName,
+          startDate,
+          endDate,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create trip.");
+      }
+
+      alert("Trip created successfully!");
+
+      setTripName("");
+      setStartDate("");
+      setEndDate("");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "An error occurred.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,9 +93,10 @@ const TripForm: React.FC = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="border-[#0e4a80] bg-[#158fd4] hover:bg-[#9daecc] text-white border-2 rounded-md p-2 mt-4 w-full"
+          className="border-[#0e4a80] bg-[#158fd4] hover:bg-[#9daecc] hover:border-white text-white border-2 rounded-md p-2 mt-4 w-full"
+          disabled={loading}
         >
-          Create Trip
+          {loading ? "Creating Trip..." : "Create Trip"}
         </button>
       </form>
     </div>
