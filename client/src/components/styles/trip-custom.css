@@ -1,0 +1,49 @@
+#tripContainer aside {
+  display: flex; 
+  flex-direction: column;
+  background-color: #158fd4;
+  border-radius: 8px; 
+  grid-column: span 1 / span 1; 
+  color: white; 
+  padding: 10px; 
+}
+
+#tripContainer aside img {
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+  width: 100px; 
+  height: 120px;  
+}
+
+#tripContainer section {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  background-color: #158ed45b; 
+}
+
+#tripContainer section p {
+  font-size: 1.2em; 
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+}
+
+#tripForm label {
+  font-size: 1.2em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-right: 10px; 
+  display: block; 
+}
+
+#tripForm input {
+  font-size: 1.2em; 
+  margin-right: 10px; 
+  display: block; 
+  background-color: white;
+  border: 1px solid #0e4a80;
+  border-radius: 5px; 
+  padding: 8px;
+  width: 100%; 
+}

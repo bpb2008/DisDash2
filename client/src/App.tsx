@@ -4,6 +4,7 @@ import Dashboard from "./components/pages/Dashboard";
 import Home from "./components/pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
+import Trip from "./components/pages/Trip";
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,14 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/trip/create"
+            element={
+              <ProtectedRoute>
+                <Trip />
               </ProtectedRoute>
             }
           />
