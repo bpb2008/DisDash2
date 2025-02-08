@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/trip-custom.css";
+import { useNavigate } from "react-router-dom";
 
 const TripForm: React.FC = () => {
   const [tripName, setTripName] = useState("");
@@ -7,6 +8,8 @@ const TripForm: React.FC = () => {
   const [endDate, setEndDate] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,10 +46,7 @@ const TripForm: React.FC = () => {
       }
 
       alert("Trip created successfully!");
-
-      setTripName("");
-      setStartDate("");
-      setEndDate("");
+      navigate("/dashboard");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An error occurred.");
     } finally {
