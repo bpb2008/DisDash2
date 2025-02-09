@@ -53,4 +53,4 @@ VITE_AUTH0_CLIENT_ID=
 
 7. Run both the front end and back end projects by running `npm run dev` in the top level of the `client` and `server` folders.
 
-Disclaimer: This project is in no way affiliated with The Walt Disney Company. I am just a fan, combining her love for Disney with her passion to learn how to code full-stack apps!
+Disclaimer: This project is in no way affiliated with or endorsed by The Walt Disney Company. This is entirely fan created!
