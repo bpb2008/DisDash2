@@ -24,7 +24,7 @@ This is the second iteration of DisDash. The same concept, but I wanted to creat
 - jsonwebtoken
 - PostgreSQL
 
-## To Run This Project Locally:
+### To Run This Project Locally:
 
 1. Clone the project.
 2. Install dependencies: `cd` into the `client` folder and run `npm install`, and then `cd` into the `server` folder run `npm install`.
@@ -34,18 +34,22 @@ This is the second iteration of DisDash. The same concept, but I wanted to creat
 4. Setup a PostgreSQL database using the schema found in `sever/src/queries.sql`.
 5. Create a `.env` file for the back end in the top level of the `server` folder and add the following values (for Auth0, be sure to use the back end Client ID, Domain, and Secret keys):
 
-`LOCALHOST_DATABASE_URL=
+```
+LOCALHOST_DATABASE_URL=
  DATABASE_URL=
- PORT= 
+ PORT=
  AUTH0_DOMAIN=
  AUTH0_CLIENT_ID=
  AUTH0_CLIENT_SECRET=
- AUTH0_AUDIENCE=`
+ AUTH0_AUDIENCE=
+```
 
 6. Create a `.env` file for the front end in the top level of the `client` folder and add the following values (for Auth0, be sure to use the front end Domain and Client ID):
 
-`VITE_AUTH0_DOMAIN=
- VITE_AUTH0_CLIENT_ID=`
+```
+VITE_AUTH0_DOMAIN=
+VITE_AUTH0_CLIENT_ID=
+```
 
 7. Run both the front end and back end projects by running `npm run dev` in the top level of the `client` and `server` folders.
 
