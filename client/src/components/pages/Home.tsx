@@ -1,7 +1,7 @@
 import React from "react";
 import LoginButton from "../authentication/LoginButton";
-import LogoutButton from "../authentication/LogoutButton";
-import { Link } from "react-router-dom";
+// import LogoutButton from "../authentication/LogoutButton";
+// import { Link } from "react-router-dom";
 import "../styles/home-custom.css";
 
 const Home: React.FC = () => {
@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     >
       <aside className="text-center md:text-left">
         <h2 className="text-xl font-bold">Insert Logo Here!</h2>
-        <nav className="mt-4">
+        {/* <nav className="mt-4">
           <ul>
             <li>
               <Link to="/dashboard">Dashboard</Link>
@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           <div id="logout">
             <LogoutButton />
           </div>
-        </nav>
+        </nav> */}
       </aside>
       <section>
         <h1>Welcome To DisDash!</h1>
