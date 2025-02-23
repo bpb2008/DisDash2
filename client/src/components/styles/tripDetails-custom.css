@@ -1,0 +1,30 @@
+#tripDetails aside {
+  display: flex; 
+  flex-direction: column;
+  background-color: #158fd4;
+  border-radius: 8px; 
+  grid-column: span 1 / span 1; 
+  color: white; 
+  padding: 10px; 
+}
+
+#tripDetails aside img {
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+  width: 100px; 
+  height: 120px;  
+}
+
+#tripDetails section {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  background-color: #158ed45b; 
+}
+
+#tripDetails section p {
+  font-size: 1.2em; 
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+}
