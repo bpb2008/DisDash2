@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
         </p>
 
         <div className="flex space-x-4 mt-2 md:mt-0">
-          <a href="/privacy-policy" className="hover:underline">
+          <a href="/about" className="hover:underline">
             About Us
           </a>
           <a href="/privacy-policy" className="hover:underline">

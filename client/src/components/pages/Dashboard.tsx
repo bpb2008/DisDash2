@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await fetch("http://localhost:6000/api/trips");
+        const response = await fetch("http://localhost:3001/api/trips");
 
         if (!response.ok) {
           throw new Error("Failed to fetch trips");

@@ -29,7 +29,7 @@ const TripForm: React.FC = () => {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:6000/api/trips", {
+      const response = await fetch("http://localhost:3001/api/trips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

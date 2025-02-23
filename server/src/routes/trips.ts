@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 import { db } from "../db-connection";
-import { checkJwt } from "../middleware/auth";
+// import { checkJwt } from "../middleware/auth";
 
 const router = express.Router();
 
 //Create Trip
-router.post("/trips", checkJwt, async (req, res) => {
+router.post("/trips", async (req, res) => {
   try {
     const { user_id, name, start_date, end_date } = req.body;
     const result = await db.query(
@@ -20,8 +20,9 @@ router.post("/trips", checkJwt, async (req, res) => {
 });
 
 //Get Trips
-router.get("/trips", checkJwt, async (req, res) => {
+router.get("/trips", async (req, res) => {
   try {
+    console.log("Hey Jason!");
     const { user_id } = req.query;
     const result = await db.query("SELECT * FROM trips WHERE user_id = $1", [
       user_id,
@@ -34,7 +35,7 @@ router.get("/trips", checkJwt, async (req, res) => {
 });
 
 //Edit or Update Trip
-router.put("/trips/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
+router.put("/trips/:id", async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { name, start_date, end_date } = req.body;
@@ -54,7 +55,7 @@ router.put("/trips/:id", checkJwt, async (req: Request, res: Response): Promise<
 });
 
 //Delete Trip
-router.delete("/trips/:id", checkJwt, async (req: Request, res: Response): Promise<void> => {
+router.delete("/trips/:id", async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const result = await db.query(
