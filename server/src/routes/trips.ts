@@ -21,12 +21,13 @@ router.post("/trips", async (req, res) => {
 
 //Get Trips
 router.get("/trips", async (req, res) => {
+  console.log("testing"); 
   try {
-    console.log("Hey Jason!");
     const { user_id } = req.query;
     const result = await db.query("SELECT * FROM trips WHERE user_id = $1", [
       user_id,
     ]);
+    console.log(user_id); 
     res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
